@@ -4,6 +4,17 @@ $proxyauth = 'fixie:3Zo31wkG9rMPtyf';
 
 $access_token = 'DWLT+dALUA6eDgEc03psgiSF/z4hGt1hjAizvr5RHWs504y/Fu70qEEsu9cY1NjLbJ8/mju46Z6K22+glLgYO0ELhd175QMLTatEChiUbS2/JPjiLt5Vcnn351jd6AjT7IWk4NmOOajJURKIlx77FAdB04t89/1O/w1cDnyilFU=';
 
+// Get user profile information
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('<channel access token>');
+$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '<channel secret>']);
+$response = $bot->getProfile('<userId>');
+if ($response->isSucceeded()) {
+    $profile = $response->getJSONDecodedBody();
+    echo $profile['displayName'];
+    echo $profile['pictureUrl'];
+    echo $profile['statusMessage'];
+}
+
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
@@ -51,32 +62,32 @@ if (!is_null($events['events'])) {
 			$messages3 = [
 				'type' => 'text',
 				// 'text' => $text
-				'text' => "join - join queue\n show - show queue status\n quit - quit queue"
+				'text' => "join - join queue\nshow - show queue status\nquit - quit queue"
 			];
 
-			// Make a POST Request to Messaging API to reply to sender
-			if($text != "join" && $text != "help" && $text != "show" && $text != "quit"){
-			$url = 'https://api.line.me/v2/bot/message/reply';
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => [$messages],
-			];
-			$post = json_encode($data);
-			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+			// // Make a POST Request to Messaging API to reply to sender
+			// if($text != "join" && $text != "help" && $text != "show" && $text != "quit"){
+			// $url = 'https://api.line.me/v2/bot/message/reply';
+			// $data = [
+			// 	'replyToken' => $replyToken,
+			// 	'messages' => [$messages],
+			// ];
+			// $post = json_encode($data);
+			// $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
 
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			curl_setopt($ch, CURLOPT_PROXY, $proxy);
-			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
-			$result = curl_exec($ch);
-			curl_close($ch);
+			// $ch = curl_init($url);
+			// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			// curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+			// curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			// curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			// curl_setopt($ch, CURLOPT_PROXY, $proxy);
+			// curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
+			// $result = curl_exec($ch);
+			// curl_close($ch);
 
-			echo $result . "\r\n";
-			}
+			// echo $result . "\r\n";
+			// }
 	
 			// Make a POST Request to Messaging API to reply to sender
 			if($text == "join"){
