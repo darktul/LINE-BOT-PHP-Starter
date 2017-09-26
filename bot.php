@@ -19,7 +19,7 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
-			if($text == 'reservation'){
+		/*	if($text == 'reservation'){
 			 	'type'=> 'template',
 			  	'altText'=> "this is a confirm template",
 			  	'template'=> {
@@ -38,7 +38,7 @@ if (!is_null($events['events'])) {
 			          	}
 			      	]
 			  	}
-			} 
+			} */
 
 			// Build message to reply back
 			else : $messages = [
