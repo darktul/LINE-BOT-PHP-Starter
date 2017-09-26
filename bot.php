@@ -72,14 +72,14 @@ if (!is_null($events['events'])) {
 				'text' => "Are you sure?"
 				'actions' => [          
 				{
-		            "type": "message",
-		            "label": "Yes",
-		            "text": "yes"
+		            'type'=> 'message',
+		            'label'=> 'Yes',
+		            'text'=> "yes"
 		          },
 		          {
-		            "type": "message",
-		            "label": "No",
-		            "text": "no"
+		            'type'=> 'message',
+		            'label'=> 'No',
+		            'text'=> "no"
 		          }
 		      	]
 			];
