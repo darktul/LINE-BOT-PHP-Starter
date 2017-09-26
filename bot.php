@@ -51,7 +51,7 @@ if (!is_null($events['events'])) {
 			$messages3 = [
 				'type' => 'text',
 				// 'text' => $text
-				'text' => "reservation - join queue<br/>show - show queue status<br/>quit - quit queue"
+				'text' => "join - join queue\n show - show queue status\n quit - quit queue"
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
