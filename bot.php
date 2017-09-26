@@ -19,8 +19,29 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
+			if($text == "reservation"){
+			 	'type'=> 'template',
+			  	'altText'=> "this is a confirm template",
+			  	'template'=> {
+			      	'type'=> 'confirm',
+			      	'text'=> "Are you sure?",
+			      	'actions'=> [
+			          	{
+			            	'type': 'message',
+			            	'label': "Yes",
+			            	'text': "yes"
+			          	},
+			          	{
+			            	'type': 'message',
+			            	'label': "No",
+			            	'text': "no"
+			          	}
+			      	]
+			  	}
+			}
+
 			// Build message to reply back
-			$messages = [
+			else : $messages = [
 				'type' => 'text',
 				'text' => $text
 			];
