@@ -25,6 +25,27 @@ if (!is_null($events['events'])) {
 				'text' => $text
 			];
 
+			$messages2 = [
+			  "type"=> "template",
+			  "altText"=> "this is a confirm template",
+			  "template"=> [
+			      "type"=> "confirm",
+			      "text"=> "Are you sure to join queue?",
+			      "actions"=> [
+			          [
+			            "type"=> "message",
+			            "label"=> "Yes",
+			            "text"=> "yes"
+			          ],
+			          [
+			            "type"=> "message",
+			            "label"=> "No",
+			            "text"=> "no"
+			          ]
+			      ]
+			  ]	
+			];
+
 		// Make a POST Request to Messaging API to reply to sender
 			if($text == "join"){
 			$url = 'https://api.line.me/v2/bot/message/reply';
@@ -50,27 +71,7 @@ if (!is_null($events['events'])) {
 			echo $result . "\r\n";
 			}
 
-			$messages2 = [
-			  "type"=> "template",
-			  "altText"=> "this is a confirm template",
-			  "template"=> [
-			      "type"=> "confirm",
-			      "text"=> "Are you sure to join queue?",
-			      "actions"=> [
-			          [
-			            "type"=> "message",
-			            "label"=> "Yes",
-			            "text"=> "yes"
-			          ],
-			          [
-			            "type"=> "message",
-			            "label"=> "No",
-			            "text"=> "no"
-			          ]
-			      ]
-			  ]	
-			];
-}
+			}
 }
 }
 echo "OK";
