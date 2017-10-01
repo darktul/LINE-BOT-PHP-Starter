@@ -48,7 +48,7 @@ if (!is_null($events['events'])) {
 
 			$messages4 = [
 				 "type"=> "imagemap",
-				  "baseUrl"=> "https://mekoclinic.com/wp-content/uploads/2017/04/AD-product-fullerene7-1040x1040-01.jpg",
+				  "baseUrl"=> "https://mekoclinic.com/wp-content/uploads/2017/04/AD-product-fullerene7-1040x1040-01.jpg/1040",
 				  "altText"=> "this is an imagemap",
 				  "baseSize"=> [
 				      "height"=> 1040,
