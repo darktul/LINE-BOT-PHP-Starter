@@ -46,12 +46,68 @@ if (!is_null($events['events'])) {
 			  ]	
 			];
 
+			$messages4 = [
+				 "type"=> "imagemap",
+				  "baseUrl"=> "https://www.theworktop.com/wp-content/uploads/2015/02/1040-Gluten-Free-Buckwheat-Waffles.jpg",
+				  "altText"=> "this is an imagemap",
+				  "baseSize"=> [
+				      "height"=> 1040,
+				      "width"=> 1040
+				  ],
+				  "actions"=> [
+				      [
+				          "type"=> "uri",
+				          "linkUri"=> "https://psu.ac.th/",
+				          "area"=> [
+				              "x"=> 0,
+				              "y"=> 0,
+				              "width"=> 520,
+				              "height"=> 1040
+				          ]
+				      ],
+				      [
+				          "type"=> "message",
+				          "text"=> "hello",
+				          "area"=> [
+				              "x"=> 520,
+				              "y"=> 0,
+				              "width"=> 520,
+				              "height"=> 1040
+				          ]
+				      ]
+				  ]
+			];
+
 		// Make a POST Request to Messaging API to reply to sender
 			if($text == "join"){
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
 				'messages' => [$messages2],
+			];
+
+			$post = json_encode($data);
+			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($ch, CURLOPT_PROXY, $proxy);
+			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
+			$result = curl_exec($ch);
+			curl_close($ch);
+
+			echo $result . "\r\n";
+			}
+
+			if($text == "show"){
+			$url = 'https://api.line.me/v2/bot/message/reply';
+			$data = [
+				'replyToken' => $replyToken,
+				'messages' => [$messages4],
 			];
 
 			$post = json_encode($data);
