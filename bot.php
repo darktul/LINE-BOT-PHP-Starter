@@ -8,6 +8,18 @@ $access_token = 'DWLT+dALUA6eDgEc03psgiSF/z4hGt1hjAizvr5RHWs504y/Fu70qEEsu9cY1Nj
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
+
+// // Get user profile information.
+// $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient('<channel access token>');
+// $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => '<channel secret>']);
+// $response = $bot->getProfile('<userId>');
+// if ($response->isSucceeded()) {
+//     $profile = $response->getJSONDecodedBody();
+//     echo $profile['displayName'];
+//     echo $profile['pictureUrl'];
+//     echo $profile['statusMessage'];
+// }
+
 // var_dump($events);
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
@@ -52,6 +64,38 @@ if (!is_null($events['events'])) {
 				'type' => 'text',
 				// 'text' => $text
 				'text' => "join - join queue\nshow - show queue status\nquit - quit queue"
+			];
+
+			$messages4 = [
+				 "type"=> "imagemap",
+				  "baseUrl"=> "https://example.com/bot/images/rm001",
+				  "altText"=> "this is an imagemap",
+				  "baseSize"=> [
+				      "height"=> 1040,
+				      "width"=> 1040
+				  ],
+				  "actions"=> [
+				      [
+				          "type"=> "uri",
+				          "linkUri"=> "https://example.com/",
+				          "area"=> [
+				              "x"=> 0,
+				              "y"=> 0,
+				              "width"=> 520,
+				              "height"=> 1040
+				          ]
+				      ],
+				      [
+				          "type"=> "message",
+				          "text"=> "hello",
+				          "area"=> [
+				              "x"=> 520,
+				              "y"=> 0,
+				              "width"=> 520,
+				              "height"=> 1040
+				          ]
+				      ]
+				  ]
 			];
 
 			// // Make a POST Request to Messaging API to reply to sender
@@ -127,6 +171,31 @@ if (!is_null($events['events'])) {
 
 			echo $result . "\r\n";
 			}
+
+			if($text == "show"){
+			$url = 'https://api.line.me/v2/bot/message/reply';
+			$data = [
+				'replyToken' => $replyToken,
+				'messages' => [$messages2],
+			];
+
+			$post = json_encode($data);
+			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($ch, CURLOPT_PROXY, $proxy);
+			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
+			$result = curl_exec($ch);
+			curl_close($ch);
+
+			echo $result . "\r\n";
+			}
+
 		}
 	}
 }
